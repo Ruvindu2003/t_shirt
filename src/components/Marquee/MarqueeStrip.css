@@ -1,0 +1,36 @@
+/* ─── MARQUEE STRIP ──────────────────────────────────────── */
+.marquee-strip {
+  background: var(--red);
+  padding: 14px 0;
+  overflow: hidden;
+  position: relative;
+}
+
+.marquee-strip__track {
+  display: flex;
+  animation: marquee 22s linear infinite;
+  width: max-content;
+}
+
+.marquee-strip__item {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 0 28px;
+  white-space: nowrap;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  letter-spacing: 0.18em;
+  color: var(--white);
+  text-transform: uppercase;
+}
+
+.marquee-strip__sep {
+  color: rgba(255, 255, 255, 0.45);
+  font-size: 1rem;
+}
+
+/* pause on hover */
+.marquee-strip:hover .marquee-strip__track {
+  animation-play-state: paused;
+}

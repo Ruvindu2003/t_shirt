@@ -1,57 +1,45 @@
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800;900&family=Rajdhani:wght@400;500;600;700&display=swap');
 
-/* ─── CSS RESET & TOKENS ─────────────────────────────────── */
-*, *::before, *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+/* ─── RESET ──────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+/* ─── DESIGN TOKENS ──────────────────────────────────────── */
 :root {
-  --black:    #0a0a0a;
-  --white:    #ffffff;
-  --off-white:#f5f5f5;
-  --red:      #e61c1c;
-  --red-dark: #b01212;
-  --red-glow: rgba(230, 28, 28, 0.35);
-  --grey-100: #1a1a1a;
-  --grey-200: #2a2a2a;
-  --grey-300: #444444;
-  --grey-400: #888888;
+  --black:      #0a0a0a;
+  --white:      #ffffff;
+  --off-white:  #f5f5f5;
+  --red:        #e61c1c;
+  --red-dark:   #b01212;
+  --red-glow:   rgba(230, 28, 28, 0.35);
+  --grey-100:   #1a1a1a;
+  --grey-200:   #2a2a2a;
+  --grey-300:   #444444;
+  --grey-400:   #888888;
+
   --font-display: 'Bebas Neue', sans-serif;
   --font-body:    'Inter', sans-serif;
   --font-accent:  'Rajdhani', sans-serif;
+
   --radius-sm:  6px;
   --radius-md:  12px;
   --radius-lg:  20px;
-  --radius-xl:  32px;
   --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-html { scroll-behavior: smooth; }
-
-body {
-  font-family: var(--font-body);
-  background-color: var(--black);
-  color: var(--white);
-  overflow-x: hidden;
-  line-height: 1.6;
-}
+/* ─── BASE ───────────────────────────────────────────────── */
+html  { scroll-behavior: smooth; }
+body  { font-family: var(--font-body); background: var(--black); color: var(--white); overflow-x: hidden; line-height: 1.6; }
 
 /* ─── SCROLLBAR ──────────────────────────────────────────── */
-::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar       { width: 5px; }
 ::-webkit-scrollbar-track { background: var(--black); }
 ::-webkit-scrollbar-thumb { background: var(--red); border-radius: 3px; }
 
 /* ─── SELECTION ──────────────────────────────────────────── */
 ::selection { background: var(--red); color: var(--white); }
 
-/* ─── UTILITY ────────────────────────────────────────────── */
-.container {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 0 24px;
-}
+/* ─── SHARED UTILITIES ───────────────────────────────────── */
+.container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
 
 .section-label {
   font-family: var(--font-accent);
@@ -80,12 +68,7 @@ body {
   transition: var(--transition);
   text-decoration: none;
 }
-
-.btn-primary:hover {
-  background: var(--red-dark);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 30px var(--red-glow);
-}
+.btn-primary:hover { background: var(--red-dark); transform: translateY(-2px); box-shadow: 0 8px 30px var(--red-glow); }
 
 .btn-outline {
   display: inline-flex;
@@ -105,55 +88,68 @@ body {
   transition: var(--transition);
   text-decoration: none;
 }
+.btn-outline:hover { background: var(--white); color: var(--black); transform: translateY(-2px); }
 
-.btn-outline:hover {
-  background: var(--white);
-  color: var(--black);
-  transform: translateY(-2px);
+/* ─── SECTION HEADER (shared) ────────────────────────────── */
+.section-header { text-align: center; margin-bottom: 60px; }
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  color: var(--white);
+  letter-spacing: 0.02em;
+  line-height: 1;
+  margin-top: 12px;
+}
+.section-title .highlight { color: var(--red); }
+
+.section-sub {
+  color: rgba(255,255,255,0.45);
+  font-size: 0.95rem;
+  max-width: 500px;
+  margin: 16px auto 0;
+  line-height: 1.7;
 }
 
-/* ─── KEYFRAMES ──────────────────────────────────────────── */
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(40px); }
-  to   { opacity: 1; transform: translateY(0); }
+/* ─── REVEAL ANIMATION ───────────────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(36px);
+  transition: opacity 0.7s cubic-bezier(0.4,0,0.2,1), transform 0.7s cubic-bezier(0.4,0,0.2,1);
 }
+.reveal.visible { opacity: 1; transform: translateY(0); }
 
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to   { opacity: 1; }
-}
-
-@keyframes slideLeft {
-  from { opacity: 0; transform: translateX(60px); }
-  to   { opacity: 1; transform: translateX(0); }
-}
-
-@keyframes slideRight {
-  from { opacity: 0; transform: translateX(-60px); }
-  to   { opacity: 1; transform: translateX(0); }
-}
-
-@keyframes pulse-red {
-  0%, 100% { box-shadow: 0 0 0 0 var(--red-glow); }
-  50%       { box-shadow: 0 0 0 12px transparent; }
-}
-
-@keyframes marquee {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
-}
-
-@keyframes float {
-  0%, 100% { transform: translateY(0px) rotate(0deg); }
-  50%       { transform: translateY(-18px) rotate(2deg); }
-}
-
+/* ─── GLOBAL KEYFRAMES ───────────────────────────────────── */
+@keyframes fadeUp    { from { opacity:0; transform:translateY(40px); } to { opacity:1; transform:translateY(0); } }
+@keyframes slideLeft { from { opacity:0; transform:translateX(60px); } to { opacity:1; transform:translateX(0); } }
+@keyframes slideRight{ from { opacity:0; transform:translateX(-60px); } to { opacity:1; transform:translateX(0); } }
+@keyframes float     { 0%,100%{ transform:translateY(0) rotate(0deg); } 50%{ transform:translateY(-18px) rotate(2deg); } }
+@keyframes marquee   { from { transform:translateX(0); } to { transform:translateX(-50%); } }
+@keyframes pulse-red { 0%,100%{ box-shadow:0 0 0 0 var(--red-glow); } 50%{ box-shadow:0 0 0 12px transparent; } }
 @keyframes glitch {
-  0%   { clip-path: inset(0 0 85% 0); transform: translate(-4px, 0); }
-  10%  { clip-path: inset(40% 0 40% 0); transform: translate(4px, 0); }
-  20%  { clip-path: inset(80% 0 5% 0); transform: translate(-2px, 0); }
-  30%  { clip-path: inset(10% 0 70% 0); transform: translate(3px, 0); }
-  40%  { clip-path: inset(60% 0 20% 0); transform: translate(-1px, 0); }
-  50%  { clip-path: inset(0 0 0 0); transform: translate(0, 0); }
-  100% { clip-path: inset(0 0 0 0); transform: translate(0, 0); }
+  0%   { clip-path:inset(0 0 85% 0); transform:translate(-4px,0); }
+  10%  { clip-path:inset(40% 0 40% 0); transform:translate(4px,0); }
+  20%  { clip-path:inset(80% 0 5% 0); transform:translate(-2px,0); }
+  30%  { clip-path:inset(10% 0 70% 0); transform:translate(3px,0); }
+  40%  { clip-path:inset(60% 0 20% 0); transform:translate(-1px,0); }
+  50%,100%{ clip-path:inset(0 0 0 0); transform:translate(0,0); }
 }
+
+/* ─── GLOBAL MOBILE RESPONSIVE ───────────────────────────── */
+@media (max-width: 768px) {
+  .container { padding: 0 16px; }
+  .section-header { margin-bottom: 40px; }
+  .section-sub { font-size: 0.9rem; }
+}
+
+@media (max-width: 480px) {
+  .btn-primary, .btn-outline {
+    padding: 12px 22px;
+    font-size: 0.88rem;
+  }
+  .section-header { margin-bottom: 32px; }
+}
+
+/* Prevent horizontal overflow globally */
+img { max-width: 100%; height: auto; }
+
