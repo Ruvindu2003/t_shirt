@@ -209,20 +209,81 @@
 
 .navbar__mobile-close:hover { color: var(--red); }
 
+.navbar__user-actions-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
 @media (max-width: 768px) {
   .navbar__links      { display: none; }
   .navbar__hamburger  { display: flex; }
 
-  .navbar__cart {
-    padding: 7px 12px;
-    font-size: 0.78rem;
+  .navbar__actions {
+    gap: 6px;
+  }
+
+  .navbar__user-actions-row {
+    gap: 6px;
+  }
+
+  .navbar__login-btn {
+    padding: 6px 10px;
+    font-size: 0.74rem;
+    white-space: nowrap;
+    letter-spacing: 0.04em;
+  }
+
+  .user-profile-badge {
+    padding: 4px 8px;
     gap: 5px;
   }
 
-  .logo-text { font-size: 1.4rem; }
+  .user-avatar-circle {
+    width: 24px;
+    height: 24px;
+    font-size: 0.72rem;
+  }
+
+  .navbar__cart {
+    padding: 6px 9px;
+    font-size: 0.75rem;
+    gap: 4px;
+  }
+
+  .navbar__logo-text { font-size: 1.35rem; }
+}
+
+@media (max-width: 480px) {
+  .user-name-text {
+    display: none;
+  }
+
+  .user-profile-badge {
+    padding: 4px;
+    border-radius: 50%;
+  }
+
+  .navbar__actions {
+    gap: 5px;
+  }
+
+  .navbar__login-btn {
+    padding: 6px 8px;
+    font-size: 0.72rem;
+  }
+
+  .navbar__logo-svg {
+    width: 30px;
+    height: 30px;
+  }
+
+  .navbar__logo-text {
+    font-size: 1.25rem;
+  }
 }
 
 @media (max-width: 400px) {
   .navbar__cart-count { display: none; }
-  .navbar { padding: 14px 0; }
+  .navbar { padding: 10px 0; }
 }

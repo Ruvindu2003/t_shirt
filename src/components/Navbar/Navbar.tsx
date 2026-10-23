@@ -60,13 +60,15 @@ export default function Navbar({ onOpenAuth, user, onLogout, activeView, onToggl
           {/* Actions */}
           <div className="navbar__actions">
             {user ? (
-              <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+              <div className="navbar__user-actions-row">
                 <button
                   className="navbar__login-btn"
                   onClick={onToggleView}
                   style={{ background: activeView === 'dashboard' ? 'var(--red)' : 'rgba(230, 28, 28, 0.15)' }}
                 >
-                  {activeView === 'dashboard' ? '🛍️ View Store' : user.role === 'admin' ? '👑 Admin Panel' : '📦 My Account'}
+                  <span className="navbar__toggle-view-text">
+                    {activeView === 'dashboard' ? '🛍️ Store' : user.role === 'admin' ? '👑 Admin' : '📦 Account'}
+                  </span>
                 </button>
 
                 <div
@@ -80,7 +82,7 @@ export default function Navbar({ onOpenAuth, user, onLogout, activeView, onToggl
                     {user.role === 'admin' ? '⚡' : user.name.charAt(0).toUpperCase()}
                   </div>
                   <span className="user-name-text">
-                    {user.name} <em style={{ fontSize: '0.72rem', opacity: 0.7, fontStyle: 'normal' }}>({user.role})</em>
+                    {user.name}
                   </span>
                   <span style={{ fontSize: '0.75rem', opacity: 0.6 }}>✕</span>
                 </div>
