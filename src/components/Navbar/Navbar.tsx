@@ -1,9 +1,18 @@
 import { useState, useEffect } from 'react'
+import type { UserSession } from '../../types/dashboard'
 import './Navbar.css'
 
 const links = ['Home', 'Collection', 'About', 'Drops', 'Contact']
 
-export default function Navbar() {
+interface NavbarProps {
+  onOpenAuth: () => void
+  user: UserSession | null
+  onLogout: () => void
+  activeView: 'store' | 'dashboard'
+  onToggleView: () => void
+}
+
+export default function Navbar({ onOpenAuth, user, onLogout, activeView, onToggleView }: NavbarProps) {
   const [scrolled, setScrolled]   = useState(false)
   const [menuOpen, setMenuOpen]   = useState(false)
   const [cartCount]               = useState(2)
@@ -50,6 +59,44 @@ export default function Navbar() {
 
           {/* Actions */}
           <div className="navbar__actions">
+            {user ? (
+              <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                <button
+                  className="navbar__login-btn"
+                  onClick={onToggleView}
+                  style={{ background: activeView === 'dashboard' ? 'var(--red)' : 'rgba(230, 28, 28, 0.15)' }}
+                >
+                  {activeView === 'dashboard' ? '🛍️ View Store' : user.role === 'admin' ? '👑 Admin Panel' : '📦 My Account'}
+                </button>
+
+                <div
+                  className="user-profile-badge"
+                  onClick={onLogout}
+                  title="Click to logout"
+                  role="button"
+                  tabIndex={0}
+                >
+                  <div className="user-avatar-circle" style={{ background: user.role === 'admin' ? '#e61c1c' : '#2563eb' }}>
+                    {user.role === 'admin' ? '⚡' : user.name.charAt(0).toUpperCase()}
+                  </div>
+                  <span className="user-name-text">
+                    {user.name} <em style={{ fontSize: '0.72rem', opacity: 0.7, fontStyle: 'normal' }}>({user.role})</em>
+                  </span>
+                  <span style={{ fontSize: '0.75rem', opacity: 0.6 }}>✕</span>
+                </div>
+              </div>
+            ) : (
+              <button
+                id="navbar-login-btn"
+                className="navbar__login-btn"
+                onClick={onOpenAuth}
+                aria-label="Sign in"
+              >
+                <span className="navbar__login-icon">👤</span>
+                <span>Sign In</span>
+              </button>
+            )}
+
             <button id="navbar-cart-btn" className="navbar__cart" aria-label="Open cart">
               🛒
               <span className="navbar__cart-count" aria-label={`${cartCount} items in cart`}>{cartCount}</span>
@@ -81,6 +128,31 @@ export default function Navbar() {
             {link}
           </a>
         ))}
+        <div style={{ marginTop: 24, paddingTop: 20, borderTop: '1px solid rgba(255,255,255,0.1)' }}>
+          {user ? (
+            <button
+              className="btn-outline"
+              style={{ width: '100%', justifyContent: 'center' }}
+              onClick={() => {
+                onLogout()
+                setMenuOpen(false)
+              }}
+            >
+              Sign Out ({user.name})
+            </button>
+          ) : (
+            <button
+              className="btn-primary"
+              style={{ width: '100%', justifyContent: 'center' }}
+              onClick={() => {
+                setMenuOpen(false)
+                onOpenAuth()
+              }}
+            >
+              👤 Sign In / Register
+            </button>
+          )}
+        </div>
       </div>
     </>
   )
