@@ -1,106 +1,246 @@
-/* Customer Dashboard with Sleek Youth Streetwear Layout */
-.customer-dashboard {
-  min-height: calc(100vh - 75px);
-  padding: 100px 32px 70px;
-  max-width: 1340px;
-  margin: 0 auto;
-}
-
-.cd-header {
+/* Customer Dashboard Layout with Sleek Dark Streetwear Sidebar */
+.customer-layout {
   display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  margin-bottom: 32px;
-  padding-bottom: 24px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  flex-wrap: wrap;
-  gap: 16px;
+  min-height: calc(100vh - 75px);
+  padding-top: 75px;
+  background: #09090b;
+  color: #f4f4f5;
 }
 
-.cd-user-intro h1 {
-  font-family: var(--font-display);
-  font-size: 2.8rem;
-  letter-spacing: 0.04em;
-  margin-bottom: 4px;
+/* Sidebar */
+.cd-sidebar {
+  width: 270px;
+  background: #0e0e11;
+  border-right: 1px solid rgba(255, 255, 255, 0.07);
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  position: sticky;
+  top: 75px;
+  height: calc(100vh - 75px);
+  z-index: 50;
+  transition: var(--transition);
+}
+
+.cd-sidebar-top {
+  padding: 24px 20px 18px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.cd-sidebar-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.cd-sidebar-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  font-weight: 800;
   color: #fff;
+  box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4);
 }
 
-.cd-user-intro p {
-  color: var(--grey-400);
+.cd-sidebar-user-name {
+  font-family: var(--font-accent);
+  font-weight: 700;
   font-size: 0.95rem;
+  letter-spacing: 0.05em;
+  color: #fff;
+  line-height: 1.2;
 }
 
-.cd-badge-group {
+.cd-sidebar-tier-tag {
+  display: inline-block;
+  background: rgba(230, 28, 28, 0.15);
+  border: 1px solid rgba(230, 28, 28, 0.35);
+  color: #ff5252;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  padding: 2px 7px;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+
+/* Sidebar Navigation */
+.cd-sidebar-nav {
+  padding: 18px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+  overflow-y: auto;
+}
+
+.cd-sidebar-section-title {
+  font-family: var(--font-accent);
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.35);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 8px 12px 4px;
+}
+
+.cd-sidebar-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: 8px;
+  color: rgba(255, 255, 255, 0.7);
+  background: transparent;
+  border: 1px solid transparent;
+  font-family: var(--font-accent);
+  font-size: 0.92rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: var(--transition);
+  text-align: left;
+  width: 100%;
+}
+
+.cd-sidebar-item:hover {
+  background: rgba(255, 255, 255, 0.04);
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.cd-sidebar-item.active {
+  background: linear-gradient(90deg, rgba(230, 28, 28, 0.18), rgba(230, 28, 28, 0.06));
+  border-color: rgba(230, 28, 28, 0.4);
+  color: #fff;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.4);
+}
+
+.cd-sidebar-item.active .cd-item-icon {
+  color: #ff5252;
+  transform: scale(1.1);
+}
+
+.cd-sidebar-item-content {
   display: flex;
   align-items: center;
   gap: 10px;
 }
 
-.cd-tier-badge {
-  background: rgba(230, 28, 28, 0.15);
-  border: 1px solid var(--red);
-  color: #ff5252;
-  padding: 6px 14px;
-  border-radius: 20px;
-  font-family: var(--font-accent);
-  font-size: 0.8rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+.cd-item-icon {
+  font-size: 1.15rem;
+  transition: var(--transition);
 }
 
-.cd-back-btn {
-  background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+.cd-item-badge {
+  background: var(--red);
   color: #fff;
-  padding: 10px 22px;
-  border-radius: 4px;
+  font-size: 0.68rem;
+  font-weight: 800;
+  padding: 2px 7px;
+  border-radius: 12px;
+}
+
+.cd-sidebar-footer {
+  padding: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.cd-store-switch-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #fff;
+  padding: 11px;
+  border-radius: 6px;
   font-family: var(--font-accent);
-  font-size: 0.9rem;
+  font-size: 0.88rem;
   font-weight: 700;
   cursor: pointer;
   transition: var(--transition);
 }
 
-.cd-back-btn:hover {
+.cd-store-switch-btn:hover {
   background: #fff;
   color: #000;
+  border-color: #fff;
+}
+
+/* Main Dashboard Workspace */
+.cd-main-content {
+  flex: 1;
+  padding: 34px 38px 60px;
+  overflow-y: auto;
+  max-width: 1380px;
+}
+
+.cd-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.cd-header-row h1 {
+  font-family: var(--font-display);
+  font-size: 2.6rem;
+  letter-spacing: 0.03em;
+  line-height: 1.05;
+  color: #fff;
+}
+
+.cd-header-row p {
+  color: var(--grey-400);
+  font-size: 0.92rem;
+  margin-top: 4px;
 }
 
 /* Stat Cards */
 .cd-stats-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
   gap: 18px;
-  margin-bottom: 36px;
+  margin-bottom: 30px;
 }
 
 .cd-stat-card {
-  background: #141416;
-  border: 1px solid rgba(255, 255, 255, 0.07);
+  background: #121215;
+  border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: var(--radius-md);
-  padding: 22px;
+  padding: 20px;
   display: flex;
   align-items: center;
-  gap: 18px;
+  gap: 16px;
   transition: var(--transition);
 }
 
 .cd-stat-card:hover {
   border-color: rgba(230, 28, 28, 0.4);
-  transform: translateY(-3px);
+  transform: translateY(-2px);
   box-shadow: 0 10px 24px rgba(0, 0, 0, 0.5);
 }
 
 .cd-stat-icon {
-  width: 52px;
-  height: 52px;
+  width: 50px;
+  height: 50px;
   border-radius: 12px;
   background: rgba(230, 28, 28, 0.1);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.6rem;
+  font-size: 1.5rem;
   color: var(--red);
 }
 
@@ -112,71 +252,37 @@
 }
 
 .cd-stat-label {
-  font-size: 0.82rem;
+  font-size: 0.8rem;
   color: var(--grey-400);
   margin-top: 4px;
 }
 
-/* Tabs */
-.cd-nav-tabs {
-  display: flex;
-  gap: 12px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  margin-bottom: 28px;
+/* Section Container Card */
+.cd-section-box {
+  background: #121215;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  margin-bottom: 30px;
 }
 
-.cd-tab-btn {
-  background: transparent;
-  border: none;
-  color: var(--grey-400);
-  padding: 12px 20px;
-  font-family: var(--font-accent);
-  font-size: 0.95rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  cursor: pointer;
-  position: relative;
-  transition: var(--transition);
-}
-
-.cd-tab-btn:hover {
-  color: #fff;
-}
-
-.cd-tab-btn.active {
-  color: var(--red);
-}
-
-.cd-tab-btn.active::after {
-  content: '';
-  position: absolute;
-  bottom: -1px;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: var(--red);
-  box-shadow: 0 0 10px var(--red-glow);
-}
-
-/* Section Header Row */
-.cd-section-header-row {
+.cd-card-head {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 18px;
   flex-wrap: wrap;
   gap: 12px;
 }
 
-.cd-section-title {
+.cd-card-title {
   font-family: var(--font-display);
-  font-size: 1.8rem;
+  font-size: 1.7rem;
   letter-spacing: 0.03em;
   color: #fff;
 }
 
-/* ── Customer Orders Horizontal Cards Scroll Track ── */
+/* ── Horizontal Scroll Track ── */
 .cd-cards-scroll-container {
   display: flex;
   gap: 20px;
@@ -202,12 +308,12 @@
   border-radius: 10px;
 }
 
-/* Customer Order Streetwear Card */
-.cd-order-card {
-  min-width: 300px;
-  max-width: 320px;
+/* Streetwear Order / Catalog Card */
+.cd-product-card {
+  min-width: 290px;
+  max-width: 310px;
   flex: 0 0 auto;
-  background: #141417;
+  background: #151519;
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: var(--radius-md);
   overflow: hidden;
@@ -217,13 +323,13 @@
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
 }
 
-.cd-order-card:hover {
+.cd-product-card:hover {
   transform: translateY(-5px);
-  border-color: rgba(230, 28, 28, 0.4);
+  border-color: rgba(230, 28, 28, 0.45);
   box-shadow: 0 14px 34px rgba(0, 0, 0, 0.6), 0 0 20px rgba(230, 28, 28, 0.15);
 }
 
-.cd-order-img-wrap {
+.cd-card-img-wrap {
   position: relative;
   width: 100%;
   height: 220px;
@@ -231,32 +337,32 @@
   overflow: hidden;
 }
 
-.cd-order-img {
+.cd-card-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   transition: transform 0.4s ease;
 }
 
-.cd-order-card:hover .cd-order-img {
+.cd-product-card:hover .cd-card-img {
   transform: scale(1.05);
 }
 
-.cd-order-card-badge {
+.cd-card-badge-top {
   position: absolute;
   top: 12px;
   left: 12px;
   z-index: 2;
 }
 
-.cd-order-body {
+.cd-card-body {
   padding: 18px 16px;
   display: flex;
   flex-direction: column;
   flex: 1;
 }
 
-.cd-order-title {
+.cd-card-title {
   font-family: var(--font-display);
   font-size: 1.35rem;
   letter-spacing: 0.03em;
@@ -265,57 +371,87 @@
   margin-bottom: 6px;
 }
 
-.cd-order-meta {
-  font-size: 0.8rem;
-  color: var(--grey-400);
-  margin-bottom: 4px;
-}
-
-.cd-order-size-highlight {
-  display: inline-block;
-  padding: 3px 8px;
-  background: rgba(230, 28, 28, 0.15);
-  border: 1px solid rgba(230, 28, 28, 0.35);
-  border-radius: 4px;
-  color: #ff5252;
-  font-weight: 700;
-  font-size: 0.76rem;
-  margin: 6px 0 12px;
-}
-
-.cd-order-footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-  margin-top: auto;
-  padding-top: 12px;
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
-}
-
-.cd-order-price {
+.cd-card-price {
   font-family: var(--font-accent);
-  font-size: 1.05rem;
+  font-size: 1.1rem;
   font-weight: 800;
-  color: #fff;
+  color: #ff5252;
+  margin-bottom: 12px;
 }
 
-.cd-track-btn {
-  background: var(--red);
-  border: none;
-  color: #fff;
-  padding: 8px 14px;
+/* Interactive Size Selector in Card */
+.cd-size-selector-wrap {
+  margin-bottom: 14px;
+}
+
+.cd-size-selector-label {
+  font-size: 0.72rem;
+  font-family: var(--font-accent);
+  text-transform: uppercase;
+  color: var(--grey-400);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  margin-bottom: 6px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.cd-size-buttons {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.cd-size-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #eee;
+  padding: 5px 10px;
   border-radius: 4px;
   font-family: var(--font-accent);
-  font-size: 0.82rem;
+  font-size: 0.8rem;
   font-weight: 700;
   cursor: pointer;
   transition: var(--transition);
 }
 
-.cd-track-btn:hover {
+.cd-size-btn:hover {
+  border-color: rgba(230, 28, 28, 0.4);
+  color: #fff;
+}
+
+.cd-size-btn.selected {
+  background: var(--red);
+  border-color: var(--red);
+  color: #fff;
+  box-shadow: 0 0 10px var(--red-glow);
+}
+
+.cd-order-now-btn {
+  width: 100%;
+  padding: 11px;
+  background: var(--red);
+  border: none;
+  border-radius: 4px;
+  color: #fff;
+  font-family: var(--font-accent);
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: auto;
+}
+
+.cd-order-now-btn:hover {
   background: var(--red-dark);
-  box-shadow: 0 4px 15px var(--red-glow);
+  box-shadow: 0 4px 18px var(--red-glow);
+  transform: translateY(-2px);
 }
 
 /* Status Badges */
@@ -347,12 +483,48 @@
   border: 1px solid rgba(34, 197, 94, 0.3);
 }
 
-/* Profile Form Card */
+/* Modal for Instant Order / Customizer Confirmation */
+.cd-order-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 2200;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.cd-order-modal-card {
+  background: #141418;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--radius-md);
+  max-width: 500px;
+  width: 100%;
+  padding: 28px;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9), 0 0 40px rgba(230, 28, 28, 0.15);
+  position: relative;
+  max-height: calc(100vh - 40px);
+  overflow-y: auto;
+}
+
+.cd-modal-title {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  letter-spacing: 0.03em;
+  color: #fff;
+  margin-bottom: 4px;
+}
+
+/* Profile Form */
 .cd-profile-card {
-  background: #141416;
+  background: #121215;
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: var(--radius-md);
-  padding: 32px;
+  padding: 28px;
   max-width: 640px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
 }
@@ -394,12 +566,26 @@
 }
 
 /* Responsive */
-@media (max-width: 768px) {
-  .customer-dashboard {
-    padding: 85px 18px 50px;
-  }
-  .cd-header {
+@media (max-width: 900px) {
+  .customer-layout {
     flex-direction: column;
-    align-items: flex-start;
+  }
+  .cd-sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+    top: 0;
+  }
+  .cd-sidebar-nav {
+    flex-direction: row;
+    overflow-x: auto;
+    padding: 10px 14px;
+    gap: 8px;
+  }
+  .cd-sidebar-section-title {
+    display: none;
+  }
+  .cd-main-content {
+    padding: 24px 18px;
   }
 }
