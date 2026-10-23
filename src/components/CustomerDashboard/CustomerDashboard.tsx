@@ -79,6 +79,7 @@ export default function CustomerDashboard({ user, onBackToStore }: CustomerDashb
   const [phone, setPhone] = useState('+94 77 123 4567')
   const [address, setAddress] = useState('No. 45 Galle Road, Colombo 03, Sri Lanka')
   const [savedSuccess, setSavedSuccess] = useState(false)
+  const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false)
 
   // Selected sizes state per catalog item: { [productId]: size }
   const [selectedSizes, setSelectedSizes] = useState<Record<number, string>>({
@@ -135,8 +136,32 @@ export default function CustomerDashboard({ user, onBackToStore }: CustomerDashb
 
   return (
     <div className="customer-layout">
+      {/* Mobile Sidebar Floating Toggle Topbar */}
+      <div className="cd-mobile-topbar">
+        <button
+          className="cd-mobile-sidebar-toggle"
+          onClick={() => setIsMobileSidebarOpen(!isMobileSidebarOpen)}
+          aria-label="Toggle customer menu"
+        >
+          <span>{isMobileSidebarOpen ? '✕' : '☰'}</span>
+          <span>{isMobileSidebarOpen ? 'Close Menu' : 'Member Menu'}</span>
+        </button>
+
+        <span style={{ fontSize: '0.8rem', fontFamily: 'var(--font-accent)', color: '#ff5252', fontWeight: 700 }}>
+          ⚡ {activeNav.toUpperCase()}
+        </span>
+      </div>
+
+      {/* Backdrop for mobile drawer */}
+      {isMobileSidebarOpen && (
+        <div
+          className="cd-sidebar-backdrop"
+          onClick={() => setIsMobileSidebarOpen(false)}
+        />
+      )}
+
       {/* ── Left Modern Streetwear Sidebar ── */}
-      <aside className="cd-sidebar">
+      <aside className={`cd-sidebar${isMobileSidebarOpen ? ' mobile-open' : ''}`}>
         <div className="cd-sidebar-top">
           <div className="cd-sidebar-brand">
             <div className="cd-sidebar-avatar">{user.name.charAt(0).toUpperCase()}</div>
@@ -145,6 +170,13 @@ export default function CustomerDashboard({ user, onBackToStore }: CustomerDashb
               <span className="cd-sidebar-tier-tag">⚡ VIP Street Member</span>
             </div>
           </div>
+          <button
+            className="cd-sidebar-mobile-close"
+            onClick={() => setIsMobileSidebarOpen(false)}
+            aria-label="Close sidebar"
+          >
+            ✕
+          </button>
         </div>
 
         <nav className="cd-sidebar-nav">
@@ -152,7 +184,10 @@ export default function CustomerDashboard({ user, onBackToStore }: CustomerDashb
 
           <button
             className={`cd-sidebar-item${activeNav === 'shop' ? ' active' : ''}`}
-            onClick={() => setActiveNav('shop')}
+            onClick={() => {
+              setActiveNav('shop')
+              setIsMobileSidebarOpen(false)
+            }}
           >
             <div className="cd-sidebar-item-content">
               <span className="cd-item-icon">🛍️</span>
@@ -163,7 +198,10 @@ export default function CustomerDashboard({ user, onBackToStore }: CustomerDashb
 
           <button
             className={`cd-sidebar-item${activeNav === 'orders' ? ' active' : ''}`}
-            onClick={() => setActiveNav('orders')}
+            onClick={() => {
+              setActiveNav('orders')
+              setIsMobileSidebarOpen(false)
+            }}
           >
             <div className="cd-sidebar-item-content">
               <span className="cd-item-icon">📦</span>
@@ -174,7 +212,10 @@ export default function CustomerDashboard({ user, onBackToStore }: CustomerDashb
 
           <button
             className={`cd-sidebar-item${activeNav === 'wishlist' ? ' active' : ''}`}
-            onClick={() => setActiveNav('wishlist')}
+            onClick={() => {
+              setActiveNav('wishlist')
+              setIsMobileSidebarOpen(false)
+            }}
           >
             <div className="cd-sidebar-item-content">
               <span className="cd-item-icon">❤️</span>
@@ -184,7 +225,10 @@ export default function CustomerDashboard({ user, onBackToStore }: CustomerDashb
 
           <button
             className={`cd-sidebar-item${activeNav === 'profile' ? ' active' : ''}`}
-            onClick={() => setActiveNav('profile')}
+            onClick={() => {
+              setActiveNav('profile')
+              setIsMobileSidebarOpen(false)
+            }}
           >
             <div className="cd-sidebar-item-content">
               <span className="cd-item-icon">📍</span>

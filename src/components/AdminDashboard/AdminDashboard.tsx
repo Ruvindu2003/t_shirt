@@ -75,6 +75,7 @@ export default function AdminDashboard({ user, onBackToStore }: AdminDashboardPr
   const [inventory, setInventory] = useState<InventoryItem[]>(INITIAL_INVENTORY)
   const [activeNav, setActiveNav] = useState<'analytics' | 'inventory' | 'orders' | 'sizes'>('inventory')
   const [viewMode, setViewMode] = useState<'cards' | 'table'>('cards')
+  const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false)
 
   // Add Product Modal State
   const [isAddModalOpen, setIsAddModalOpen] = useState(false)
@@ -171,8 +172,32 @@ export default function AdminDashboard({ user, onBackToStore }: AdminDashboardPr
 
   return (
     <div className="admin-layout">
+      {/* Mobile Sidebar Floating Toggle Bar */}
+      <div className="ad-mobile-topbar">
+        <button
+          className="ad-mobile-sidebar-toggle"
+          onClick={() => setIsMobileSidebarOpen(!isMobileSidebarOpen)}
+          aria-label="Toggle admin menu"
+        >
+          <span>{isMobileSidebarOpen ? '✕' : '☰'}</span>
+          <span>{isMobileSidebarOpen ? 'Close Menu' : 'Admin Menu'}</span>
+        </button>
+
+        <span style={{ fontSize: '0.8rem', fontFamily: 'var(--font-accent)', color: '#ff5252', fontWeight: 700 }}>
+          ⚡ {activeNav.toUpperCase()}
+        </span>
+      </div>
+
+      {/* Backdrop for mobile sidebar drawer */}
+      {isMobileSidebarOpen && (
+        <div
+          className="ad-sidebar-backdrop"
+          onClick={() => setIsMobileSidebarOpen(false)}
+        />
+      )}
+
       {/* ── Left Modern Streetwear Sidebar ── */}
-      <aside className="ad-sidebar">
+      <aside className={`ad-sidebar${isMobileSidebarOpen ? ' mobile-open' : ''}`}>
         <div className="ad-sidebar-top">
           <div className="ad-sidebar-brand">
             <div className="ad-sidebar-avatar">⚡</div>
@@ -181,6 +206,13 @@ export default function AdminDashboard({ user, onBackToStore }: AdminDashboardPr
               <span className="ad-sidebar-role-tag">Admin Console</span>
             </div>
           </div>
+          <button
+            className="ad-sidebar-mobile-close"
+            onClick={() => setIsMobileSidebarOpen(false)}
+            aria-label="Close sidebar"
+          >
+            ✕
+          </button>
         </div>
 
         <nav className="ad-sidebar-nav">
@@ -188,7 +220,10 @@ export default function AdminDashboard({ user, onBackToStore }: AdminDashboardPr
 
           <button
             className={`ad-sidebar-item${activeNav === 'inventory' ? ' active' : ''}`}
-            onClick={() => setActiveNav('inventory')}
+            onClick={() => {
+              setActiveNav('inventory')
+              setIsMobileSidebarOpen(false)
+            }}
           >
             <div className="ad-sidebar-item-content">
               <span className="ad-item-icon">👕</span>
@@ -199,7 +234,10 @@ export default function AdminDashboard({ user, onBackToStore }: AdminDashboardPr
 
           <button
             className={`ad-sidebar-item${activeNav === 'sizes' ? ' active' : ''}`}
-            onClick={() => setActiveNav('sizes')}
+            onClick={() => {
+              setActiveNav('sizes')
+              setIsMobileSidebarOpen(false)
+            }}
           >
             <div className="ad-sidebar-item-content">
               <span className="ad-item-icon">📏</span>
@@ -210,7 +248,10 @@ export default function AdminDashboard({ user, onBackToStore }: AdminDashboardPr
 
           <button
             className={`ad-sidebar-item${activeNav === 'orders' ? ' active' : ''}`}
-            onClick={() => setActiveNav('orders')}
+            onClick={() => {
+              setActiveNav('orders')
+              setIsMobileSidebarOpen(false)
+            }}
           >
             <div className="ad-sidebar-item-content">
               <span className="ad-item-icon">📦</span>
@@ -221,7 +262,10 @@ export default function AdminDashboard({ user, onBackToStore }: AdminDashboardPr
 
           <button
             className={`ad-sidebar-item${activeNav === 'analytics' ? ' active' : ''}`}
-            onClick={() => setActiveNav('analytics')}
+            onClick={() => {
+              setActiveNav('analytics')
+              setIsMobileSidebarOpen(false)
+            }}
           >
             <div className="ad-sidebar-item-content">
               <span className="ad-item-icon">📊</span>
@@ -571,6 +615,7 @@ export default function AdminDashboard({ user, onBackToStore }: AdminDashboardPr
               </div>
             </div>
 
+            {/* Desktop Table View */}
             <div className="ad-table-wrap">
               <table className="ad-table">
                 <thead>
@@ -606,6 +651,43 @@ export default function AdminDashboard({ user, onBackToStore }: AdminDashboardPr
                   ))}
                 </tbody>
               </table>
+            </div>
+
+            {/* Mobile Card-Wise View */}
+            <div className="ad-mobile-orders-list">
+              {orders.map((o) => (
+                <div key={o.id} className="ad-order-mobile-card">
+                  <div className="ad-order-mobile-card-top">
+                    <span className="ad-order-mobile-id">{o.id}</span>
+                    <span className="ad-order-mobile-date">{o.date}</span>
+                  </div>
+
+                  <div className="ad-order-mobile-body">
+                    <div>
+                      <div className="ad-order-mobile-customer">👤 {o.customer}</div>
+                      <div className="ad-order-mobile-item">
+                        {o.product} <strong style={{ color: '#ff5252' }}>({o.size})</strong> × {o.qty}
+                      </div>
+                    </div>
+                    <div className="ad-order-mobile-price">{o.total}</div>
+                  </div>
+
+                  <div className="ad-order-mobile-actions">
+                    <span style={{ fontSize: '0.74rem', color: 'var(--grey-400)', textTransform: 'uppercase', fontFamily: 'var(--font-accent)', fontWeight: 700 }}>
+                      Change Status:
+                    </span>
+                    <select
+                      className="ad-status-select"
+                      value={o.status}
+                      onChange={(e) => handleStatusChange(o.id, e.target.value as any)}
+                    >
+                      <option value="Processing">Processing</option>
+                      <option value="Shipped">Shipped</option>
+                      <option value="Delivered">Delivered</option>
+                    </select>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         )}

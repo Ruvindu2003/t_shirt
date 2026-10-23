@@ -2,13 +2,14 @@
   position: fixed;
   inset: 0;
   z-index: 2000;
-  background: rgba(8, 8, 8, 0.78);
+  background: rgba(8, 8, 8, 0.82);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 20px;
+  padding: 16px;
+  overflow-y: auto;
   animation: authFadeIn 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
@@ -25,15 +26,31 @@
   position: relative;
   width: 100%;
   max-width: 960px;
-  min-height: 580px;
+  max-height: calc(100vh - 32px);
   background: #0f0f10;
   border-radius: var(--radius-lg);
   border: 1px solid rgba(255, 255, 255, 0.1);
   box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.9), 0 0 50px rgba(230, 28, 28, 0.15);
   display: grid;
   grid-template-columns: 1.05fr 1.25fr;
-  overflow: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: var(--red) #0f0f10;
   animation: authScaleUp 0.32s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.auth-modal-card::-webkit-scrollbar {
+  width: 5px;
+}
+
+.auth-modal-card::-webkit-scrollbar-track {
+  background: #0f0f10;
+}
+
+.auth-modal-card::-webkit-scrollbar-thumb {
+  background: var(--red);
+  border-radius: 4px;
 }
 
 @keyframes authScaleUp {
@@ -503,7 +520,7 @@
   .auth-modal-card {
     grid-template-columns: 1fr;
     max-width: 460px;
-    min-height: auto;
+    max-height: calc(100vh - 24px);
   }
 
   .auth-showcase-panel {
@@ -511,6 +528,51 @@
   }
 
   .auth-form-panel {
-    padding: 34px 24px;
+    padding: 28px 20px;
+  }
+
+  .auth-form-title {
+    font-size: 1.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .auth-modal-backdrop {
+    padding: 10px;
+  }
+
+  .auth-modal-card {
+    max-height: calc(100vh - 16px);
+    border-radius: var(--radius-md);
+  }
+
+  .auth-form-panel {
+    padding: 22px 16px;
+  }
+
+  .auth-form-title {
+    font-size: 1.6rem;
+  }
+
+  .auth-close-btn {
+    top: 12px;
+    right: 12px;
+    width: 32px;
+    height: 32px;
+    font-size: 0.95rem;
+  }
+
+  .auth-tabs {
+    margin-bottom: 18px;
+  }
+
+  .auth-tab-btn {
+    padding: 8px 12px;
+    font-size: 0.82rem;
+  }
+
+  .auth-social-buttons {
+    grid-template-columns: 1fr;
+    gap: 8px;
   }
 }
