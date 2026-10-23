@@ -120,37 +120,54 @@ export default function CustomerDashboard({ user, onBackToStore }: CustomerDashb
         </button>
       </div>
 
-      {/* Tab 1: Orders */}
+      {/* Tab 1: Orders (Horizontal Streetwear Card Scroll) */}
       {activeTab === 'orders' && (
-        <div className="cd-orders-list">
-          {orders.map((order) => (
-            <div key={order.id} className="cd-order-card">
-              <div className="cd-order-product">
-                <img src={order.image} alt={order.productName} className="cd-order-img" />
-                <div>
-                  <div className="cd-order-title">{order.productName}</div>
-                  <div className="cd-order-meta">
-                    Order ID: <strong>{order.id}</strong> · Placed on {order.date}
-                  </div>
-                  <div className="cd-order-meta" style={{ marginTop: 2 }}>
-                    Size: <strong>{order.size}</strong> · Qty: {order.quantity} · Total: {order.price}
+        <div>
+          <div className="cd-section-header-row">
+            <div>
+              <h3 className="cd-section-title">My Streetwear Drops & Orders</h3>
+              <p style={{ fontSize: '0.84rem', color: 'var(--grey-400)' }}>
+                Scroll horizontally to view your orders, delivery status, and tracking updates.
+              </p>
+            </div>
+          </div>
+
+          <div className="cd-cards-scroll-container">
+            {orders.map((order) => (
+              <article key={order.id} className="cd-order-card">
+                <div className="cd-order-img-wrap">
+                  <img src={order.image} alt={order.productName} className="cd-order-img" />
+                  <div className="cd-order-card-badge">
+                    <span className={`cd-order-status-badge status-${order.status}`}>
+                      ● {order.status}
+                    </span>
                   </div>
                 </div>
-              </div>
 
-              <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
-                <span className={`cd-order-status-badge status-${order.status}`}>
-                  ● {order.status}
-                </span>
-                <button
-                  className="cd-track-btn"
-                  onClick={() => alert(`Tracking information for ${order.id}: Package in transit via City Express Courier.`)}
-                >
-                  Track Package 🚚
-                </button>
-              </div>
-            </div>
-          ))}
+                <div className="cd-order-body">
+                  <h4 className="cd-order-title">{order.productName}</h4>
+                  <div className="cd-order-meta">Order ID: <strong>{order.id}</strong></div>
+                  <div className="cd-order-meta">Date: {order.date}</div>
+
+                  <div>
+                    <span className="cd-order-size-highlight">
+                      Size: {order.size} (Qty: {order.quantity})
+                    </span>
+                  </div>
+
+                  <div className="cd-order-footer">
+                    <span className="cd-order-price">{order.price}</span>
+                    <button
+                      className="cd-track-btn"
+                      onClick={() => alert(`Tracking information for ${order.id}:\nStatus: ${order.status}\nCarrier: City Express Courier\nEstimated Delivery: 2-3 business days.`)}
+                    >
+                      Track Drop 🚚
+                    </button>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
         </div>
       )}
 
@@ -193,18 +210,56 @@ export default function CustomerDashboard({ user, onBackToStore }: CustomerDashb
 
       {/* Tab 3: Wishlist */}
       {activeTab === 'wishlist' && (
-        <div className="cd-orders-list">
-          <div className="cd-order-card">
-            <div className="cd-order-product">
-              <img src={product1} alt="Skull Thunder Tee" className="cd-order-img" />
-              <div>
-                <div className="cd-order-title">Skull Thunder Tee — White</div>
-                <div className="cd-order-meta">Chapter One Special Edition</div>
-              </div>
+        <div>
+          <div className="cd-section-header-row">
+            <div>
+              <h3 className="cd-section-title">Saved Streetwear Drops</h3>
+              <p style={{ fontSize: '0.84rem', color: 'var(--grey-400)' }}>
+                Your saved wishlist items ready for order via WhatsApp or Instagram DM.
+              </p>
             </div>
-            <button className="btn-primary" onClick={onBackToStore}>
-              Order via DM Now →
-            </button>
+          </div>
+
+          <div className="cd-cards-scroll-container">
+            <article className="cd-order-card">
+              <div className="cd-order-img-wrap">
+                <img src={product1} alt="Skull Thunder Tee" className="cd-order-img" />
+                <div className="cd-order-card-badge">
+                  <span className="cd-order-status-badge status-Delivered">In Stock</span>
+                </div>
+              </div>
+              <div className="cd-order-body">
+                <h4 className="cd-order-title">Skull Thunder Tee — White</h4>
+                <div className="cd-order-meta">Chapter One · Heavyweight Ring-spun</div>
+                <div className="cd-order-size-highlight">Sizes: S, M, L, XL, XXL</div>
+                <div className="cd-order-footer">
+                  <span className="cd-order-price">LKR 4,500</span>
+                  <button className="cd-track-btn" onClick={onBackToStore}>
+                    Order Now →
+                  </button>
+                </div>
+              </div>
+            </article>
+
+            <article className="cd-order-card">
+              <div className="cd-order-img-wrap">
+                <img src={product2} alt="Lightning Skull Tee" className="cd-order-img" />
+                <div className="cd-order-card-badge">
+                  <span className="cd-order-status-badge status-Processing">Limited Stock</span>
+                </div>
+              </div>
+              <div className="cd-order-body">
+                <h4 className="cd-order-title">Lightning Skull Tee — Black</h4>
+                <div className="cd-order-meta">Signature Series · 220gsm Cotton</div>
+                <div className="cd-order-size-highlight">Sizes: S, M, L (⭐ Rare)</div>
+                <div className="cd-order-footer">
+                  <span className="cd-order-price">LKR 4,500</span>
+                  <button className="cd-track-btn" onClick={onBackToStore}>
+                    Order Now →
+                  </button>
+                </div>
+              </div>
+            </article>
           </div>
         </div>
       )}
